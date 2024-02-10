@@ -1,21 +1,33 @@
-@Test
-public void checkIsAdultWhenAgeIsMoreThan18True() {
-    Program program = new Program();
-    boolean isAdult = program.checkIsAdult(19);
-    assertEquals(Должно вернуться true, так как пользователь совершеннолетний, true, isAdult);
-}
+@RunWith(Parameterized.class) // Напиши аннотацию для параметризованных тестов
+public class CheckIsAdultTest {
+	
+  private final int age;
+  private final boolean result;
 
-// Напиши код здесь
-@Test
-public void checkIsAdultWhenAgeIsLessThan18False() {
-    Program program = new Program();
-    boolean isAdult = program.checkIsAdult(16);
-    assertEquals(Должно вернуться false, так как пользователь не совершеннолетний, false, isAdult);    
-}
 
-@Test
-public void checkIsAdultWhenAgeIs18True() {
-    Program program = new Program();
-    boolean isAdult = program.checkIsAdult(18);
-    assertEquals(Должно вернуться true, так как пользователь совершеннолетний, true, isAdult);    
+  public CheckIsAdultTest(int age, boolean result) {
+	// Инициализируй поля класса в конструкторе
+    this.age = age; 
+    this.result = result;
+  }
+
+  @Parameterized.Parameters // Пометь метод аннотацией для параметров
+  public static Object[][] getTextData() {
+	return new Object[][] {
+        {17, false},
+        {18, true},
+        {20, true},
+        {21, true},
+        // Заполни массив тестовыми данными и ожидаемым результатом
+    };
+  }
+
+  @Test
+  public void checkIsAdultWhenAgeThenResult() {
+	Program program = new Program();
+	// Передай сюда возраст пользователя
+    boolean isAdult = program.checkIsAdult(age);
+	// Сравни полученный и ожидаемый результаты, не забудь про сообщение об ошибке
+    assertEquals(Возраст пользователя:  + age , result, isAdult);
+	}
 }
